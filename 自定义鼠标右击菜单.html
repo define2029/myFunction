@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      #custom-menu {
+        position: absolute;
+        display: none;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+      }
+
+      #custom-menu li {
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+
+      #custom-menu li:hover {
+        background-color: #f0f0f0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>右键点击查看自定义菜单</h1>
+
+    <!-- 自定义右键菜单 -->
+    <ul id="custom-menu">
+      <li id="menu-item-1">菜单项 1</li>
+      <li id="menu-item-2">菜单项 2</li>
+      <li id="menu-item-3">菜单项 3</li>
+    </ul>
+    <script>
+      let cm = document.getElementById('custom-menu')
+      document.addEventListener('contextmenu', function (e) {
+        e.preventDefault() // 阻止默认右键菜单
+        // 获取鼠标点击位置
+        let x = e.clientX
+        let y = e.clientY
+        // 显示自定义右键菜单
+        cm.style.left = `${x}px`
+        cm.style.top = `${y}px`
+        cm.style.display = 'block'
+      })
+      // 点击菜单外部，隐藏menu
+      document.addEventListener('click', function (e) {
+        // Node 接口的 contains() 方法返回一个布尔值，表示一个节点是否是给定节点的后代，即该节点本身、其直接子节点（childNodes）、子节点的直接子节点等。
+        if (!cm.contains(e.target)) {
+          cm.style.display = 'none'
+        }
+      })
+
+      // 菜单项点击事件(事件委托)
+      cm.addEventListener('click', function (e) {
+        let txt = e.target.textContent
+        cm.style.display = 'none'
+        alert(`您点击了${txt}`)
+      })
+    </script>
+  </body>
+</html>

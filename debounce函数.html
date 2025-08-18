@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>防抖</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container {
+        display: flex;
+        justify-content: space-around;
+        width: 800px;
+        height: 400px;
+        padding: 20px;
+        box-shadow: 0 0 8px #222;
+      }
+
+      .container div {
+        width: 350px;
+        height: 380px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        font-size: 18px;
+        line-height: 20px;
+        word-break: break-all;
+      }
+
+      .input-box {
+        color: #368;
+        outline: none;
+      }
+
+      .show-box {
+        color: orange;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- contenteditable 是否允许用户直接在页面上编辑元素的内容 -->
+      <div class="input-box" contenteditable></div>
+      <div class="show-box"></div>
+    </div>
+    <script src="./js/common.js"></script>
+    <script>
+      var oInput = $('.input-box')
+      var oShow = $('.show-box')
+      function show() {
+        oShow.innerText = oInput.innerText
+        console.log(this)
+      }
+      function debounce(fn, delay = 500) {
+        let timer = null
+        return function () {
+          timer && clearTimeout(timer)
+          timer = setTimeout(() => {
+            fn.call(this, ...arguments) // this指向调用者
+          }, delay)
+        }
+      }
+      oInput.addEventListener('input', debounce(show, 800))
+      // oInput.addEventListener('input', show)
+      //   var timeout
+      //   oInput.addEventListener('input', function () {
+      //     timeout && clearTimeout(timeout) // 存在输入就重置计时器
+      //     timeout = setTimeout(function () {
+      //       oShow.innerText = oInput.innerText
+      //     }, 500)
+      //   })
+    </script>
+  </body>
+</html>

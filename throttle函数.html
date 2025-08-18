@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>节流</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .box {
+        display: flex;
+        justify-content: space-around;
+        width: 800px;
+        height: 400px;
+        padding: 20px;
+        background-color: #ccc;
+        box-shadow: 0 0 8px #222;
+        font-size: 82px;
+        font-weight: 900;
+        text-align: center;
+        line-height: 400px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="box">0</div>
+    <script>
+      var oBox = document.querySelector('.box')
+      var num = 0
+      function change() {
+        oBox.innerText = num++
+      }
+      function throttle(fn, delay = 500) {
+        let time = Date.now()
+        return function () {
+          if (Date.now() - time > delay) {
+            time = Date.now()
+            fn.call(this, ...arguments)
+          }
+        }
+      }
+      oBox.addEventListener('mousemove', throttle(change))
+      //时间戳版
+      // var time = Date.now();
+      // oBox.addEventListener('mousemove', function () {
+      //     if (Date.now() - time < 500) {
+      //         return false;
+      //     }
+      //     change();
+      //     time = Date.now();
+      // })
+
+      //定时器版
+      // var valid = true;
+      // oBox.addEventListener('mousemove', function () {
+      //     if (!valid) {
+      //         return false;
+      //     }
+      //     valid = false;//?
+      //     setTimeout(function () {
+      //         change();
+      //         valid = true;
+      //     }, 500)
+      // })
+
+      //束流版
+      // var time = 0;
+      // oBox.addEventListener('mousemove', function () {
+      //     time++;
+      //     if (time % 20 !== 0) {
+      //         return false;
+      //     }
+      //     change();
+      // })
+    </script>
+  </body>
+</html>

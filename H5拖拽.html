@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML5 Drag and Drop</title>
+    <style>
+      #drag-source {
+        width: 100px;
+        height: 100px;
+        background-color: lightblue;
+        margin: 20px;
+        text-align: center;
+        line-height: 100px;
+        cursor: move;
+      }
+      #drop-target {
+        width: 200px;
+        height: 200px;
+        background-color: lightgreen;
+        border: 2px dashed gray;
+        margin: 20px;
+        text-align: center;
+        line-height: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="drag-source" draggable="true">Drag me</div>
+    <div id="drop-target">Drop here</div>
+
+    <script>
+      const dragSource = document.getElementById('drag-source')
+      const dropTarget = document.getElementById('drop-target')
+
+      // Drag start event
+      dragSource.addEventListener('dragstart', event => {
+        event.dataTransfer.setData('text/plain', 'Dragged data')
+      })
+
+      // Drag over event
+      dropTarget.addEventListener('dragover', event => {
+        event.preventDefault() // Necessary to allow dropping
+        dropTarget.style.backgroundColor = 'lightyellow'
+      })
+
+      // Drag leave event
+      dropTarget.addEventListener('dragleave', () => {
+        dropTarget.style.backgroundColor = 'lightgreen'
+      })
+
+      // Drop event
+      dropTarget.addEventListener('drop', event => {
+        event.preventDefault()
+        dropTarget.style.backgroundColor = 'lightgreen'
+        const data = event.dataTransfer.getData('text/plain')
+        dropTarget.textContent = `Dropped: ${data}`
+      })
+    </script>
+  </body>
+</html>

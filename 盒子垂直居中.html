@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .parent {
+            width: 500px;
+            height: 500px;
+            margin: 0 auto;
+            background-color: blueviolet;
+            /* 方法一 */
+            /* display: flex;
+            justify-content: center;
+            align-items: center; */
+
+            /* 方法二 */
+            position: relative;
+        }
+
+        .child {
+            position: absolute;
+            /* 方法二 */
+            /* top: 50%;
+            left: 50%;
+            margin: -100px 0 0 -100px; */
+
+            /* 方法三 */
+            /* top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto; */
+
+            /* 方法四 */
+            /* top: calc(50% - 100px);
+            left: calc(50% - 100px); */
+
+            /* 方法五 */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            width: 200px;
+            height: 200px;
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <div class="parent">
+        <div class="child">child</div>
+    </div>
+</body>
+</html>
