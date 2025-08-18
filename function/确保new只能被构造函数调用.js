@@ -40,10 +40,10 @@
 
 // 方法三(class 最佳方案)
 // 类的构造器必须使用new调用
-class Person{
-    constructor(name){
+class Person {
+    constructor(name) {
         this.name = name
     }
 }
 console.log(new Person('wjl'))
-conso
+console.log(Person('hxy')) // 直接调用构造函数,抛出错误
